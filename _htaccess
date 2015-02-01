@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "Music Archive"
+AuthBasicProvider file
+AuthUserFile /usr/local/apache/passwd/passwords
+Require user myusername
