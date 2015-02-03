@@ -23,5 +23,4 @@ If you have installed the application in the root folder of your web server you 
 
 ## Known Issues
 - The **Random** button is not fully functional yet.
-- When a new artist, genre, location or year is entered, it does not show up in the filter comboboxes until a reload.
 
