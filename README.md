@@ -6,6 +6,7 @@
 - PHP 5.5+ with PostgreSQL support
 - PostgreSQL
 - A graphical browser with Javascript enabled (e.g. Firefox)
+- PHPUnit (only for development needed)
 
 ## Installation
 1. Create a new database user with a password set.
