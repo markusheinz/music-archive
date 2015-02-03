@@ -50,8 +50,11 @@ Ext.define('Heinz.cdarchive.ItemForm', {
                     if (text == 'true') {
                         Ext.Msg.alert(config.headline,
                                       'Changes saved successfully.');
+                        
                         panel.items.getAt(1).getStore().reload();
                         panel.reset();
+
+                        Ext.getCmp('FilterPanel').reload();
                     } else {
                         Ext.Msg.alert(config.headline,
                                       'Changes could not be saved.');

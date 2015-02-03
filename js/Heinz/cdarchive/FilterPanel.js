@@ -60,6 +60,20 @@ Ext.define('Heinz.cdarchive.FilterPanel', {
             this.items.getAt(1).items.getAt(1).items.getAt(1).setValue(-1);
         }
     },
+    reload: function() {
+        for (var p = 0; p < this.items.getCount(); p++) {
+            var panel = this.items.getAt(p);
+
+            for (var i = 0; i < panel.items.getCount(); i++) {
+                if (p == 1 && i == panel.items.getCount() - 3) {
+                    break;
+                }
+               
+                panel.items.getAt(i).reload();
+                
+            }
+        }
+    },    
     reset: function() {
         for (var p = 0; p < this.items.getCount(); p++) {
             var panel = this.items.getAt(p);

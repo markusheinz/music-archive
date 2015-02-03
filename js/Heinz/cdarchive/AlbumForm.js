@@ -84,6 +84,7 @@ Ext.define('Heinz.cdarchive.AlbumForm', {
                                   'Changes saved successfully.');
                     Ext.getCmp('albumForm').resetAlbumForm();
                     Ext.data.StoreManager.lookup('albumStore').reload();
+                    Ext.getCmp('FilterPanel').reload();
                 } else {
                     Ext.Msg.alert('Add / Edit Album', 
                                   'Changes could not be saved.');

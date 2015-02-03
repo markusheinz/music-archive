@@ -106,7 +106,7 @@ Ext.define('Heinz.cdarchive.GridButtonPanel', {
                     Ext.Msg.alert('Delete Album',
                                   'Changes saved successfully.');
                     Ext.data.StoreManager.lookup('albumStore').reload();
-
+                    Ext.getCmp('FilterPanel').reload();
                 } else {
                     Ext.Msg.alert('Delete Album', 
                                   'Changes could not be saved.');

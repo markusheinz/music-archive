@@ -18,5 +18,8 @@ Ext.define('Heinz.cdarchive.ItemFilter', {
         });
         
         this.callParent();
-    }   
+    },
+    reload: function () {
+        this.items.getAt(1).getStore().reload();
+    }
 });
