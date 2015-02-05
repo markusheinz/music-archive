@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2014 Markus Heinz
+ * (c) 2015 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -14,9 +14,9 @@ Ext.application({
         Ext.widget({
             xtype: 'tabpanel',
             renderTo: Ext.getBody(),
-            width: 1000,
+            width: 727,
             height: 830,
-            title: 'CD Archive',
+            title: 'Music Archive',
             items: [
                 Ext.create('Heinz.cdarchive.AlbumView'),
                 Ext.create('Heinz.cdarchive.AlbumForm')
