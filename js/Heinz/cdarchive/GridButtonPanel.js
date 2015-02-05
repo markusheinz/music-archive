@@ -123,6 +123,15 @@ Ext.define('Heinz.cdarchive.GridButtonPanel', {
         var toSelect = Ext.Number.randomInt(0, num - 1);
         var pageSize = store.getPageSize();
         var page = Math.floor(toSelect / pageSize) + 1;
+        
+
+        store.on('load', function() {
+            var count = this.getCount();
+            var toSelect = Ext.Number.randomInt(0, count - 1);
+            var grid = Ext.getCmp('AlbumGrid');
+            grid.getSelectionModel().select(toSelect);
+            
+        }, store, {single: true});
 
         store.loadPage(page);
     },

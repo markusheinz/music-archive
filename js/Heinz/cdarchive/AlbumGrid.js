@@ -12,6 +12,7 @@ Ext.define('Heinz.cdarchive.AlbumGrid', {
     height: 600,
     sortableColumns: false,
     store: Ext.create('Heinz.cdarchive.AlbumStore'),
+    id: 'AlbumGrid',
     columns: {
         defaults: {
             width: 100
