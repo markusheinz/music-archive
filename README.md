@@ -20,7 +20,3 @@
 ## Invocation
 
 If you have installed the application in the root folder of your web server you can access it from the same host under **http://localhost/js/**. If you have installed it under another path the URL changes accordingly.
-
-## Known Issues
-- The **Random** button is not fully functional yet.
-
