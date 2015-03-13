@@ -110,7 +110,7 @@ class CDArchive {
 
   public function getAlbums($offset, $limit, $filters) {
 
-    $query = "select a.album_id, artist_name, " .
+    $query = "select distinct a.album_id, artist_name, " .
       "album_title, album_year, location_desc " .
       "from tbl_albums as a " .
       "inner join tbl_album_artist as aa " .
@@ -132,7 +132,7 @@ class CDArchive {
   }
 
   public function getAlbumCount($filters) {
-    $query = "select count(1) as item_count " .
+    $query = "select count(distinct(a.album_id)) as item_count " .
       "from tbl_albums as a " .
       "inner join tbl_album_artist as aa " .
       "on a.album_id = aa.album_id " .
