@@ -9,7 +9,7 @@
 Ext.define('Heinz.cdarchive.AlbumStore', {
     extend: 'Ext.data.Store',
     storeId: 'albumStore',
-    pageSize: 22,
+    pageSize: 20,
     model: 'Heinz.cdarchive.Album',
     proxy: Ext.create('Heinz.cdarchive.JsonProxy', {
         extraParams: {

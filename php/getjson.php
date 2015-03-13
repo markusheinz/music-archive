@@ -23,14 +23,23 @@ if (isset($_GET['cmd'])) {
 
       $filters = array();
       $filterKeys = array('artist_id', 'genre_id', 'location_id', 'year', 
-                          'original');
+                          'original', 'song');
 
       foreach ($filterKeys as $key) {
         if (isset($_GET[$key])) {
-          $filters[$key] = (int) $_GET[$key];
 
-          if (strlen($_GET[$key]) == 0) { // year may be unspecified
-            $filters[$key] = -1; 
+          if ($key === 'song') {
+
+            $filters[$key] = $_GET[$key];
+
+          } else {
+
+            $filters[$key] = (int) $_GET[$key];
+
+            if (strlen($_GET[$key]) == 0) { // year may be unspecified
+              $filters[$key] = -1; 
+            }
+
           }
         }
       }

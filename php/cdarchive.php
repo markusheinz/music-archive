@@ -79,11 +79,15 @@ class CDArchive {
                              'genre_id' => 'and a.album_genre_id',
                              'location_id' => 'and a.album_location_id ',
                              'year' => 'and a.album_year',
-                             'original' => 'and a.album_original');
+                             'original' => 'and a.album_original',
+                             'song' => 'and s.song_title like ');
 
     foreach ($filterExpansion as $param => $clause) {
       if (array_key_exists($param, $filters))
-        if ((int) $filters[$param] >= 0) {
+
+        if ($param === 'song' && strlen($filters[$param]) > 0) {
+          $result .= $clause . pg_escape_literal('%' . $filters[$param] . '%');
+        } else if ((int) $filters[$param] >= 0) {
           $result .= $clause . ' = ' . (int) $filters[$param] . ' ';
         } else if ($filters[$param] === -1) { // -1 represents 'null'
           $result .= $clause . ' is null ';
@@ -93,7 +97,19 @@ class CDArchive {
     return $result;
   }
 
+  private function getSongFilter($filters) {
+    $songFilter = '';
+
+    if (array_key_exists('song', $filters)) {
+      $songFilter = 'inner join tbl_songs as s ' .
+        'on s.album_id = a.album_id ';
+    }
+
+    return $songFilter;
+  }
+
   public function getAlbums($offset, $limit, $filters) {
+
     $query = "select a.album_id, artist_name, " .
       "album_title, album_year, location_desc " .
       "from tbl_albums as a " .
@@ -103,6 +119,7 @@ class CDArchive {
       "on aa.artist_id = a2.artist_id " .
       "inner join tbl_locations as l " .
       "on a.album_location_id = l.location_id " .
+      $this->getSongFilter($filters) .
       "where true ";
 
     $query .= $this->expandAlbumFilters($filters);
@@ -123,6 +140,7 @@ class CDArchive {
       "on aa.artist_id = a2.artist_id " .
       "inner join tbl_locations as l " .
       "on a.album_location_id = l.location_id " .
+      $this->getSongFilter($filters) .
       "where true ";
 
     $query .= $this->expandAlbumFilters($filters);
