@@ -80,13 +80,14 @@ class CDArchive {
                              'location_id' => 'and a.album_location_id ',
                              'year' => 'and a.album_year',
                              'original' => 'and a.album_original',
-                             'song' => 'and s.song_title like ');
+                             'song' => 'and lower(s.song_title) like ');
 
     foreach ($filterExpansion as $param => $clause) {
       if (array_key_exists($param, $filters))
 
         if ($param === 'song' && strlen($filters[$param]) > 0) {
-          $result .= $clause . pg_escape_literal('%' . $filters[$param] . '%');
+          $result .= $clause . 
+            'lower(\'%' . pg_escape_string($filters[$param]) . '%\')';
         } else if ((int) $filters[$param] >= 0) {
           $result .= $clause . ' = ' . (int) $filters[$param] . ' ';
         } else if ($filters[$param] === -1) { // -1 represents 'null'
