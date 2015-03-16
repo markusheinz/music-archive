@@ -11,6 +11,12 @@ class CDArchive {
 
   private $con;
 
+  /**
+   * Constructs a new object and initializes the database connection
+   * specified by the given connection string.
+   *
+   * @param connectionString a PostgreSQL connection string
+   */
   public function __construct($connectionString) {
     $this->con = pg_connect($connectionString);
 
@@ -19,10 +25,19 @@ class CDArchive {
     }
   }
 
+  /**
+   * Closes the database connection and destroys the object.
+   */
   public function __destruct() {
     if ($this->con) pg_close($this->con);
   }
 
+  /**
+   * Executes a database query which does not give a result set.
+   *
+   * @param query the database query
+   * @return true on success, false otherwise
+   */
   private function executeCommand($query) {
     $r = pg_query($this->con, $query);
 
@@ -34,18 +49,39 @@ class CDArchive {
     }
   }
 
+  /**
+   * Starts a new database transaction.
+   *
+   * @return true on success, false otherwise
+   */
   public function beginTransaction() {
     return $this->executeCommand('begin');
   }
 
+  /**
+   * Commits a database transaction.
+   *
+   * @return true on success, false otherwise
+   */
   public function commitTransaction() {
     return $this->executeCommand('commit');
   }
   
+  /**
+   * Cancels a database transaction.
+   *
+   * @return true on success, false otherwise
+   */
   public function rollbackTransaction() {
     return $this->executeCommand('rollback');
   }
 
+  /**
+   * Executes a database query which does return a result set.
+   *
+   * @param query the query
+   * @return an array of result objects
+   */
   private function getItems($query) {
     $result = pg_query($this->con, $query);
     $items = array();
@@ -59,6 +95,12 @@ class CDArchive {
     return $items; 
   }
 
+  /**
+   * Executes a database query which returns a single number (e.g. a count).
+   *
+   * @param query the query
+   * @return the number
+   */
   private function getItemCount($query) {
     $result = pg_query($this->con, $query);
 
@@ -72,6 +114,13 @@ class CDArchive {
     return $count;
   }
 
+  /**
+   * Constructs an appropiate filter clause for a database query. All filters
+   * are connected by "and" operators.
+   *
+   * @param filters an array with filter conditions
+   * @return the filter clause
+   */
   private function expandAlbumFilters($filters) {
     $result = "";
 
@@ -98,6 +147,13 @@ class CDArchive {
     return $result;
   }
 
+  /**
+   * Constructs a join clause for the songs table if appropiate for the 
+   * given filters.
+   *
+   * @param filters an array with filter conditions
+   * @return the join clause if required
+   */
   private function getSongFilter($filters) {
     $songFilter = '';
 
@@ -109,6 +165,14 @@ class CDArchive {
     return $songFilter;
   }
 
+  /**
+   * Returns an array of album objects.
+   *
+   * @param offset the offset of the first album to return
+   * @param limit the count of albums to return
+   * @param filters an array of filters to apply
+   * @return an array of album objects
+   */
   public function getAlbums($offset, $limit, $filters) {
 
     $query = "select distinct a.album_id, artist_name, " .
@@ -132,6 +196,12 @@ class CDArchive {
     return $this->getItems($query);
   }
 
+  /**
+   * Returns the album count for the specified filters.
+   *
+   * @param filters an array with filters to apply
+   * @return the count of the filtered albums
+   */
   public function getAlbumCount($filters) {
     $query = "select count(distinct(a.album_id)) as item_count " .
       "from tbl_albums as a " .
@@ -149,6 +219,14 @@ class CDArchive {
     return $this->getItemCount($query);
   }
 
+  /**
+   * Returns an array of objects containing the songs of an individual album.
+   *
+   * @param albumId the ID of the album
+   * @param offset the offset of the song to start with
+   * @param limit the count of songs to return
+   * @return an array of objects with the songs of the album
+   */
   public function getAlbumSongs($albumId, $offset, $limit) {
     return $this->getItems("select track_number, song_title " . 
                            "from tbl_songs " . 
@@ -158,51 +236,98 @@ class CDArchive {
                            "limit " . (int) $limit);
   }
 
+  /**
+   * Returns the count of songs for the specified album.
+   *
+   * @param albumId the ID of the album
+   * @return the count of songs for the album specified
+   */
   public function getAlbumSongCount($albumId) {
     return $this->getItemCount("select count(1) as item_count " . 
                                "from tbl_songs " .
                                "where album_id = " . (int) $albumId);
   }
 
+  /**
+   * Returns an array of objects containing all available genres.
+   *
+   * @return an array with objects containing all available genres
+   */
   public function getGenres() {
     return $this->getItems("select genre_id, genre " . 
                            "from tbl_genres " .
                            "order by genre");
   }
 
+  /**
+   * Returns the count of all available genres.
+   *
+   * @return the count of all genres
+   */
   public function getGenreCount() {
     return $this->getItemCount("select count(1) as item_count " . 
                                "from tbl_genres");
   }
 
+  /**
+   * Return an array of objects containing all available artists.
+   *
+   * @return an array of objects containing all available artists
+   */
   public function getArtists() {
     return $this->getItems("select artist_id, artist_name " . 
                            "from tbl_artists " .
                            "order by artist_name");
   }
 
+  /**
+   * Returns the count of all artists available.
+   *
+   * @return the count of all artists available
+   */
   public function getArtistCount() {
     return $this->getItemCount("select count(1) as item_count " . 
                                "from tbl_artists");
   }
 
+  /**
+   * Returns an array of objects containing all locations available.
+   *
+   * @return an array of objects containing all locations available
+   */
   public function getLocations() {
     return $this->getItems("select location_id, location_desc " . 
                            "from tbl_locations " .
                            "order by location_desc");
   }
 
+  /**
+   * Returns the count of all locations available.
+   *
+   * @return the count of all locations
+   */
   public function getLocationCount() {
     return $this->getItemCount("select count(1) as item_count " . 
                                "from tbl_locations");
   }
 
+  /**
+   * Returns all distinct years for which albums exist. A null value may be
+   * included for albums with unspecified year.
+   *
+   * @return an array of objects containing all distinct years
+   */
   public function getYears() {
     return $this->getItems("select distinct album_year " . 
                            "from tbl_albums " .
                            "order by album_year");
   }
 
+  /**
+   * Returns the count of all distinct years.
+   *
+   * @return the count of all distinct years
+   */
   public function getYearCount() {
     /*
     return $this->getItemCount("select count (distinct(album_year)) " .
@@ -214,6 +339,12 @@ class CDArchive {
                                "from tbl_albums as a) as years;");
   }
 
+  /**
+   * Adds a new artist if he does not already exist.
+   *
+   * @param artist the name of the artist to add
+   * @return true if the artist has been added false otherwise
+   */
   public function addArtist($artist) {
     $duplicates = 0 ;
     $result = pg_prepare($this->con, "checkArtist", 
@@ -251,6 +382,12 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Adds a new genre if it does not already exist.
+   *
+   * @param genre the name of the genre to add
+   * @return true if the genre has been added false otherwise
+   */
   public function addGenre($genre) {
     $duplicates = 0 ;
     $result = pg_prepare($this->con, "checkGenre", 
@@ -288,6 +425,12 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Adds a new location if it does not already exist.
+   * 
+   * @param location the name of the location to add
+   * @return true if the location has been added false otherwise
+   */
   public function addLocation($location) {
     $duplicates = 0 ;
     $result = pg_prepare($this->con, "checkLocation", 
@@ -325,6 +468,13 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Adds songs to an album. An empty array of songs is accepted too.
+   *
+   * @param songs a two dimensional array containing the song information
+   * @param albumId the ID of the album to which the songs belong
+   * @return true if the songs have been added successfully false otherwise
+   */
   private function addAlbumSongs($songs, $albumId) {
     if (is_array($songs) && sizeof($songs) > 0) {
 
@@ -354,6 +504,12 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Adds a complete album. 
+   *
+   * @param album an object describing the album and its songs.
+   * @return true if the album has been added succesfully false otherwise
+   */
   public function addAlbum($album) {
     if ($this->beginTransaction()) {
 
@@ -426,6 +582,14 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Executes a query as prepared statement which does not return a result.
+   *
+   * @param name the name of the statement (should be unique)
+   * @param query the query
+   * @param params an array with the parameters for the query
+   * @return true if successful false otherwise
+   */
   private function executeStatement($name, $query, $params) {
     $result = pg_prepare($this->con, $name, $query);
 
@@ -441,18 +605,36 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Deletes the album metadata.
+   *
+   * @param albumId the ID of the album to delete
+   * @return true if successful false otherwise
+   */
   private function deleteAlbumData($albumId) {
     return $this->executeStatement("deleteAlbum", 
                                    "delete from tbl_albums where album_id = $1",
                                    array((int) $albumId));
   }
 
+  /**
+   * Deletes the songs belonging to an album.
+   *
+   * @param albumId the ID of the album to which the songs belong
+   * @return true if successful false otherwise
+   */
   private function deleteAlbumSongs($albumId) {
     return $this->executeStatement("deleteAlbumSongs", 
                                    "delete from tbl_songs where album_id = $1",
                                    array((int) $albumId));
   }
 
+  /**
+   * Deletes the (primary) relation of an artist to an album.
+   *
+   * @param albumId the ID of the album to which the artists had been assigned
+   * @return true if successful false otherwise
+   */
   private function deleteAlbumArtist($albumId) {
     return $this->executeStatement("deleteAlbumArtist", 
                                    "delete from tbl_album_artist " .
@@ -460,6 +642,12 @@ class CDArchive {
                                    array((int) $albumId));
   }
 
+  /**
+   * Deletes an album and all data depending on it (songs, artist relation).
+   *
+   * @param albumId the ID of the album
+   * @return true if successful false otherwise
+   */
   public function deleteAlbum($albumId) {
     if ($this->beginTransaction()) {
       $result = $this->deleteAlbumSongs($albumId);
@@ -482,6 +670,13 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Updates the songs belonging to an album.
+   *
+   * @param songs a two dimensional array describing the songs
+   * @param albumId the ID of the album to which the songs belong
+   * @return true if successful false otherwise
+   */
   private function updateAlbumSongs($songs, $albumId) {
     if ($this->deleteAlbumSongs($albumId)) {
       return $this->addAlbumSongs($songs, $albumId);
@@ -490,6 +685,13 @@ class CDArchive {
     }
   }
 
+  /**
+   * Updates an album and its related data (songs, artist).
+   *
+   * @param album an object describing the album
+   * @param albumId the ID of the album to update
+   * @return true if successful false otherwise
+   */
   public function updateAlbum($album, $albumId) {
     if ($this->beginTransaction()) {
       if ($this->executeStatement("updateAlbum",
@@ -527,6 +729,12 @@ class CDArchive {
     return false;
   }
 
+  /**
+   * Returns an object describing an album including its songs.
+   *
+   * @param albumId the ID of the album
+   * @return an object describing the album
+   */
   public function getAlbum($albumId) {
     if ($this->beginTransaction()) {
 
