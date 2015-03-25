@@ -7,8 +7,19 @@
  * Licensed under the GPL v3.0
  */
 
+/**
+ * This class provides methods for stripping HTML tags from strings contained 
+ * in objects or arrays of objects. Multi dimensional arrays and nested objects
+ * are supported too.
+ */
 class HtmlSanitizer {
 
+  /**
+   * This method strips HTML tags from all strings contained in the given
+   * object or array of objects. The objects are modified in place.
+   *
+   * @param object an object or array of objects to process
+   */
   public static function sanitize($object) {
     if (is_array($object)) {
 
@@ -23,6 +34,14 @@ class HtmlSanitizer {
     }
   }
 
+  /**
+    * This method removes all HTML tags from the strings in the given object.
+    * If an array or a nested object is encountered as member of the current 
+    * object a recursive invocation is performed. The object is modified in 
+    * place. Reflection is used to identify the properties of the object.
+    *
+    * @param object the object to process
+    */
   private static function internalSanitize($object) {
     $reflectionObject = new ReflectionObject($object);
     $properties = 
