@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015, 2016 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -31,13 +31,10 @@ Ext.define('Heinz.cdarchive.AlbumGrid', {
 			   record.data.album_title);
 	},
     },
-    initComponent: function () {
-        this.songStore = Ext.create('Heinz.cdarchive.SongStore');
-        this.callParent();
-    },
     showAlbumSongs: function (id, title) {
-        this.songStore.getProxy().setExtraParam('id', id);
-        this.songStore.loadPage(1);
+        var songStore = Ext.create('Heinz.cdarchive.SongStore');
+        songStore.getProxy().setExtraParam('id', id);
+        songStore.loadPage(1);
 
         Ext.create('Ext.window.Window', {
 	    title: 'Album Details',
@@ -49,7 +46,7 @@ Ext.define('Heinz.cdarchive.AlbumGrid', {
                 border: false,
 	        title    : title,
                 sortableColumns: false,
-                store    : 'songStore',
+                store    : songStore,
 	        columns: {
                     items: [
                         { text: 'Track', dataIndex: 'track_number', width: 70 },
