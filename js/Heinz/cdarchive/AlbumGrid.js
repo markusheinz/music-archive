@@ -32,7 +32,12 @@ Ext.define('Heinz.cdarchive.AlbumGrid', {
 	},
     },
     showAlbumSongs: function (id, title) {
-        var songStore = Ext.create('Heinz.cdarchive.SongStore');
+        var songStore =
+	    Ext.create('Heinz.cdarchive.SongStore',
+		       {
+			   proxy: Ext.create('Heinz.cdarchive.SongProxy')
+		       });
+	
         songStore.getProxy().setExtraParam('id', id);
         songStore.loadPage(1);
 
@@ -55,7 +60,7 @@ Ext.define('Heinz.cdarchive.AlbumGrid', {
                 },
 	        dockedItems: [{
 		    xtype: 'pagingtoolbar',
-		    store: 'songStore',
+		    store: songStore,
 		    dock: 'bottom',
 		    displayInfo: true
 	        }],
