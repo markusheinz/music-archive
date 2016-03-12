@@ -2,7 +2,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015, 2016 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -777,6 +777,14 @@ class CDArchive {
     
     return false;
   }
+  
+  public function getGenreStatistic() {
+    $query = "select count(a.album_id) as genre_count, g.genre " .
+              "from tbl_albums as a inner join tbl_genres as g " .
+              "on a.album_genre_id = g.genre_id " .
+              "group by g.genre " .
+              "order by genre_count desc";
+              
+    return $this->getItems($query);
+  }
 }
-
-?>

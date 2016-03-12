@@ -14,12 +14,13 @@ Ext.application({
         Ext.widget({
             xtype: 'tabpanel',
             renderTo: Ext.getBody(),
-            width: 727,
+            width: 728,
             height: 830,
             title: 'Music Archive',
             items: [
                 Ext.create('Heinz.cdarchive.AlbumView'),
-                Ext.create('Heinz.cdarchive.AlbumForm')
+                Ext.create('Heinz.cdarchive.AlbumForm'),
+                Ext.create('Heinz.cdarchive.Statistic')
             ]
         })
     }

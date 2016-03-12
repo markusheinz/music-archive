@@ -117,7 +117,7 @@ if (isset($_GET['cmd'])) {
         
         $archive->commitTransaction();
       }
-    break;
+      break;
 
     case 'year_list':
       if ($archive->beginTransaction()) {
@@ -128,7 +128,18 @@ if (isset($_GET['cmd'])) {
         
         $archive->commitTransaction();
       }
-    break;
+      break;
+    
+    case 'genre_statistic':
+      if ($archive->beginTransaction()) {
+        
+        $statistic = $archive->getGenreStatistic();
+        HtmlSanitizer::sanitize($statistic);
+        $result = new JsonResult($statistic, sizeof($statistic));
+        
+        $archive->commitTransaction();
+      }
+      break;    
   }
 
   if (isset($result)) echo $result->toJson();
