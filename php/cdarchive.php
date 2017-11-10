@@ -781,7 +781,7 @@ class CDArchive {
   public function getGenreStatistic() {
     $query = "select concat(stat.genre, ' (', " .
               "round((stat.genre_count * 100.0 / total.total_count), 2), " .
-	          "' %)') as genre, stat.genre_count " .
+              "' %)') as genre, stat.genre_count " .
               "from ( " .
               "select count(a.album_id) as genre_count, g.genre " .
               "from tbl_albums as a inner join tbl_genres as g " .
