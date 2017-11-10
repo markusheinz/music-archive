@@ -779,12 +779,21 @@ class CDArchive {
   }
   
   public function getGenreStatistic() {
-    $query = "select count(a.album_id) as genre_count, g.genre " .
+    $query = "select concat(stat.genre, ' (', " .
+              "round((stat.genre_count * 100.0 / total.total_count), 2), " .
+	          "' %)') as genre, stat.genre_count " .
+              "from ( " .
+              "select count(a.album_id) as genre_count, g.genre " .
               "from tbl_albums as a inner join tbl_genres as g " .
               "on a.album_genre_id = g.genre_id " .
               "group by g.genre " .
-              "order by genre_count desc";
-              
+              "order by genre_count desc " .
+              ") as stat " .
+              "inner join ( " .
+              "select count(a2.album_id) as total_count " .
+              "from tbl_albums a2 " .
+              ") as total on true";
+    
     return $this->getItems($query);
   }
 }
