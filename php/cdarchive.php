@@ -2,7 +2,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015, 2016 Markus Heinz
+ * (c) 2015, 2016, 2017 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -777,7 +777,13 @@ class CDArchive {
     
     return false;
   }
-  
+
+  /**
+   * Returns the distribution of the different genres.
+   *
+   * @return an array of result objects with the genre name including percentage
+   * and the absolute count of albums for the genre
+   */ 
   public function getGenreStatistic() {
     $query = "select concat(stat.genre, ' (', " .
               "round((stat.genre_count * 100.0 / total.total_count), 2), " .
