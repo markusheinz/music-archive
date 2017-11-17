@@ -2,7 +2,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015, 2016 Markus Heinz
+ * (c) 2015, 2016, 2017 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -139,9 +139,19 @@ if (isset($_GET['cmd'])) {
         
         $archive->commitTransaction();
       }
-      break;    
+      break;
+
+    case 'album_timeline':
+      if ($archive->beginTransaction()) {
+
+        $timeline = $archive->getAlbumTimeline();
+        HtmlSanitizer::sanitize($timeline);
+        $result = new JsonResult($timeline, sizeof($timeline));
+
+        $archive->commitTransaction();
+      }
+      break;
   }
 
   if (isset($result)) echo $result->toJson();
 }
-?>

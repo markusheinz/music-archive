@@ -802,4 +802,20 @@ class CDArchive {
     
     return $this->getItems($query);
   }
+
+  /**
+   * Return the count of albums over the different years.
+   *
+   * @return an array of result objects with the year and the count of albums
+   * for this year
+   */
+  public function getAlbumTimeline() {
+    $query = "select album_year, count(album_id) as count " .
+             "from tbl_albums " .
+             "where album_year is not null " .
+             "group by album_year " .
+             "order by album_year";
+
+    return $this->getItems($query);
+  }
 }
