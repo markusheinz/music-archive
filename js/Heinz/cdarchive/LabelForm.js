@@ -35,10 +35,13 @@ Ext.define('Heinz.cdarchive.LabelForm', {
     getValue: function() {
         return this.items.getAt(1).value;
     },
-    reset: function () {
+    reset: function() {
         this.items.getAt(1).reset();
     },
     setValue: function(value) {
         this.items.getAt(1).setValue(value);
+    },
+    reload: function() {
+	// nothing to do
     }
 });
