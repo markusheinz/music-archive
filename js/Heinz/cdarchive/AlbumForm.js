@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015, 2017 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -85,6 +85,8 @@ Ext.define('Heinz.cdarchive.AlbumForm', {
                     Ext.getCmp('albumForm').resetAlbumForm();
                     Ext.data.StoreManager.lookup('albumStore').reload();
                     Ext.getCmp('FilterPanel').reload();
+                    Ext.data.StoreManager.lookup('genreStatStore').reload();
+                    Ext.data.StoreManager.lookup('timelineStore').reload();
                 } else {
                     Ext.Msg.alert('Add / Edit Album', 
                                   'Changes could not be saved.');

@@ -13,7 +13,7 @@ Ext.define('Heinz.cdarchive.AlbumTimelineView', {
     layout: 'fit',
     items: {
 	xtype: 'cartesian',
-        store: Ext.create('Heinz.cdarchive.ItemStore', {
+        store: Ext.create('Heinz.cdarchive.AlbumTimelineStore', {
             model: Ext.create('Heinz.cdarchive.AlbumTimeline'),
             proxy: Ext.create('Heinz.cdarchive.JsonProxy', {
                 extraParams: {
