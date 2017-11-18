@@ -151,6 +151,17 @@ if (isset($_GET['cmd'])) {
         $archive->commitTransaction();
       }
       break;
+
+    case 'album_topten':
+      if ($archive->beginTransaction()) {
+
+          $topTen = $archive->getTopTenArtists();
+          HtmlSanitizer::sanitize($topTen);
+          $result = new JsonResult($topTen, sizeof($topTen));
+
+          $archive->commitTransaction();
+      }
+      break;
   }
 
   if (isset($result)) echo $result->toJson();

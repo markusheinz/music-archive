@@ -818,4 +818,25 @@ class CDArchive {
 
     return $this->getItems($query);
   }
+
+  /**
+   * Return the top ten artists with the most albums.
+   *
+   * @return an array of result objects with the top ten artists and their
+   * respective album count
+   */
+  public function getTopTenArtists() {
+    $query = "select artist_name, count from (" .
+             "select a.artist_name, count(rel.album_id) " .
+             "from tbl_artists as a " .
+             "inner join tbl_album_artist rel " .
+             "on a.artist_id = rel.artist_id " .
+             "group by a.artist_name " .
+             "order by count desc ".
+             "limit 10 " .
+             ") as tmp " .
+             "order by count asc";
+
+    return $this->getItems($query);
+  }
 }

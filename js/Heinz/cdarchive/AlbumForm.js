@@ -87,6 +87,7 @@ Ext.define('Heinz.cdarchive.AlbumForm', {
                     Ext.getCmp('FilterPanel').reload();
                     Ext.data.StoreManager.lookup('genreStatStore').reload();
                     Ext.data.StoreManager.lookup('timelineStore').reload();
+                    Ext.data.StoreManager.lookup('topTenStore').reload();
                 } else {
                     Ext.Msg.alert('Add / Edit Album', 
                                   'Changes could not be saved.');

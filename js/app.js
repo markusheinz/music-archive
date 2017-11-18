@@ -21,7 +21,8 @@ Ext.application({
                 Ext.create('Heinz.cdarchive.AlbumView'),
                 Ext.create('Heinz.cdarchive.AlbumForm'),
                 Ext.create('Heinz.cdarchive.Statistic'),
-                Ext.create('Heinz.cdarchive.Timeline')
+                Ext.create('Heinz.cdarchive.Timeline'),
+                Ext.create('Heinz.cdarchive.TopTen')
             ]
         })
     }
