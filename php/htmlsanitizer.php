@@ -2,7 +2,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015. 2022 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -56,7 +56,7 @@ class HtmlSanitizer {
 
       } else if (is_string($value)) {
 
-        $newvalue = htmlspecialchars($value);
+        $newvalue = htmlspecialchars($value, ENT_COMPAT);
         $property->setAccessible(true);
         $property->setValue($object, $newvalue);
 
