@@ -135,8 +135,8 @@ class CDArchive {
       if (array_key_exists($param, $filters))
 
         if ($param === 'song' && strlen($filters[$param]) > 0) {
-          $result .= $clause . 
-            'lower(\'%' . pg_escape_string($filters[$param]) . '%\')';
+          $result .= $clause . 'lower(\'%' .
+          pg_escape_string($this->con, $filters[$param]) . '%\')';
         } else if ((int) $filters[$param] >= 0) {
           $result .= $clause . ' = ' . (int) $filters[$param] . ' ';
         } else if ($filters[$param] === -1) { // -1 represents 'null'
