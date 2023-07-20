@@ -543,7 +543,7 @@ class CDArchive {
 
               if ($albumId > 0 && pg_prepare($this->con, "updateAlbumNumber", 
                                              "update tbl_albums " .
-                                             "set album_number = $1" .
+                                             "set album_number = $1 " .
                                              "where album_id = $2")) {
 
                 if ($r = pg_execute($this->con, "updateAlbumNumber", 
