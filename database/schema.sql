@@ -111,8 +111,6 @@ CREATE SEQUENCE seq_songs
 
 SET default_tablespace = '';
 
-SET default_with_oids = true;
-
 --
 -- Name: tbl_album_artist; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
