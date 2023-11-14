@@ -25,7 +25,7 @@ if ($archive->beginTransaction()) {
     <head>
         <meta charset="utf-8">
         <title>Music Archive</title>
-        <script type="text/javascript" src="js/jquery-3.7.0.js"/></script>
+        <script type="text/javascript" src="js/jquery-3.7.0.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/dataTables.bootstrap5.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
