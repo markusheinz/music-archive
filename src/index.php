@@ -44,14 +44,18 @@ if ($archive->beginTransaction()) {
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php foreach ($albums as $album) {?>
+
                     <tr>
                         <td><?php echo $album->artist_name; ?></td>
                         <td><?php echo $album->album_title; ?></td>
                         <td><?php echo $album->album_year; ?></td>
                         <td><?php echo $album->location_desc; ?></td>
                     </tr>
+
                     <?php }?>
+
                 </tbody>
             </table>
         </div>
