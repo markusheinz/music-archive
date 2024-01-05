@@ -28,8 +28,16 @@ if ($archive->beginTransaction()) {
         <script type="text/javascript" src="js/jquery-3.7.0.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/dataTables.bootstrap5.min.js"></script>
+        <script type="text/javascript" src="js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="js/buttons.bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/buttons.bootstrap5.min.js"></script>
+        <script type="text/javascript" src="js/dataTables.select.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" href="css/buttons.dataTables.min.css">
+        <link rel="stylesheet" href="css/buttons.bootstrap.min.css">
+        <link rel="stylesheet" href="css/buttons.bootstrap5.min.css">
+        <link rel="stylesheet" href="css/select.dataTables.min.css">
     </head>
 
     <body>
@@ -59,6 +67,31 @@ if ($archive->beginTransaction()) {
                 </tbody>
             </table>
         </div>
-        <script>new DataTable('#albums');</script>
+        <script>
+            var table = $('#albums').DataTable({
+                select: {
+                    style: "single"
+                },
+                dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                     "<'row'<'col-sm-12'tr>>" +
+                     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'Bp>>",
+                buttons: [{
+                    text: 'Random',
+                    action: function (e, dt, node, config) {
+                        let pageInfo = dt.page.info();
+
+                        let total = pageInfo.recordsDisplay;
+                        let row = Math.floor(Math.random() * total);
+                        let page = Math.floor(row / pageInfo.length);
+
+                        dt.search("");
+
+                        dt.row().deselect();
+                        dt.page(page).draw("page");
+                        dt.row(row).select();
+                    }
+                }]
+            });
+        </script>
     </body>
 </html>
