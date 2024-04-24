@@ -14,8 +14,21 @@ require_once "htmlsanitizer.php";
 $archive = new CDArchive(CONNECTION_STRING);
 $albums = [];
 
+$random = false;
+
+if (isset($_GET['random']) && is_string($_GET['random']) &&
+        $_GET['random'] === 'true') {
+
+    $random = true;
+}
+
 if ($archive->beginTransaction()) {
-    $albums = $archive->getAlbums(0, 10000, []); // get 10,000 albums
+    if ($random) {
+        $albums = $archive->getAlbums(0, 10, [], true); // get 10 random albums
+    } else {
+        $albums = $archive->getAlbums(0, 10000, [], false); // get 10,000 albums
+    }
+
     HtmlSanitizer::sanitize($albums); // strip HTML tags
     $archive->commitTransaction();
 }
@@ -76,19 +89,10 @@ if ($archive->beginTransaction()) {
                      "<'row'<'col-sm-12'tr>>" +
                      "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'Bp>>",
                 buttons: [{
-                    text: 'Random',
+                    text: <?php echo $random ? '"Reset"' : '"Random"' ?>,
                     action: function (e, dt, node, config) {
-                        let pageInfo = dt.page.info();
-
-                        let total = pageInfo.recordsDisplay;
-                        let row = Math.floor(Math.random() * total);
-                        let page = Math.floor(row / pageInfo.length);
-
-                        dt.search("");
-
-                        dt.row().deselect();
-                        dt.page(page).draw("page");
-                        dt.row(row).select();
+                        <?php echo "window.location.href = 'index.php?random=" .
+                                ($random ? 'false' : 'true') ."';\n"; ?>
                     }
                 }]
             });

@@ -171,11 +171,12 @@ class CDArchive {
    * @param offset the offset of the first album to return
    * @param limit the count of albums to return
    * @param filters an array of filters to apply
+   * @param random wether to sort randomly
    * @return an array of album objects
    */
-  public function getAlbums($offset, $limit, $filters) {
+  public function getAlbums($offset, $limit, $filters, $random = false) {
 
-    $query = "select distinct a.album_id, artist_name, " .
+    $query = "select a.album_id, artist_name, " .
       "album_title, album_year, location_desc " .
       "from tbl_albums as a " .
       "inner join tbl_album_artist as aa " .
@@ -189,9 +190,13 @@ class CDArchive {
 
     $query .= $this->expandAlbumFilters($filters);
 
-    $query .= "order by artist_name, album_year, album_title " .
-      "offset " . (int) $offset . " " .
-      "limit " . (int) $limit;
+    if (!$random) {
+        $query .= "order by artist_name, album_year, album_title ";
+    } else {
+        $query .= "order by random() ";
+    }
+
+    $query .= "offset " . (int) $offset . " limit " . (int) $limit;
     
     return $this->getItems($query);
   }
