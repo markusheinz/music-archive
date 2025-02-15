@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015, 2017 Markus Heinz
+ * (c) 2015, 2017, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -11,7 +11,7 @@ Ext.define('Heinz.cdarchive.AlbumForm', {
     title: 'Add / Edit Album',
     layout: {
         type: 'vbox',
-        align: 'stretch',
+        align: 'stretch'
     },
     id: 'albumForm',
     albumId: -1,

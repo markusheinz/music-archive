@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -13,41 +13,41 @@
 Ext.define('Heinz.cdarchive.FilterPanel', {
     extend: 'Ext.panel.Panel',
     layout: {
-        type: 'vbox',
+	type: 'vbox',
     },
     id: 'FilterPanel',
     items: [
-        {
-            type: 'panel',
-            layout: {
-                type:'hbox'
-            },
-            items: [
-                Ext.create('Heinz.cdarchive.ArtistFilter'),
-                Ext.create('Heinz.cdarchive.GenreFilter'),
-                Ext.create('Heinz.cdarchive.LocationFilter')
-            ]
-        },
-        {
-            type: 'panel',
-            layout: {
-                type:'hbox'
-            },
-            items: [
-                Ext.create('Heinz.cdarchive.YearFilter'),
-                Ext.create('Heinz.cdarchive.OriginalFilter'),
-                Ext.create('Heinz.cdarchive.SongFilter')
-            ]
-        },
+	{
+	    xtype: 'panel',
+	    layout: {
+		type: 'column',
+	    },
+	    items: [
+		Ext.create('Heinz.cdarchive.ArtistFilter'),
+		Ext.create('Heinz.cdarchive.GenreFilter'),
+		Ext.create('Heinz.cdarchive.LocationFilter')
+	    ]
+	},
+	{
+	    xtype: 'panel',
+	    layout: {
+		type: 'column',
+	    },
+	    items: [
+		Ext.create('Heinz.cdarchive.YearFilter'),
+		Ext.create('Heinz.cdarchive.OriginalFilter'),
+		Ext.create('Heinz.cdarchive.SongFilter')
+	    ]
+	},
         {
             type: 'panel',
             layout: {
                 type: 'hbox'
             },
             items: [
-                 {
+                {
                     xtype: 'button',
-                    margin: '10 10 10 200',
+                    margin: '10 10 20 200',
                     text: 'Reset',
                     listeners: {
                         'click': function () {
@@ -57,7 +57,7 @@ Ext.define('Heinz.cdarchive.FilterPanel', {
                 },
                 {
                     xtype: 'button',
-                    margin: '10 10 10 250',
+                    margin: '10 10 20 250',
                     text: 'Apply',
                     listeners: {
                         'click': function () {

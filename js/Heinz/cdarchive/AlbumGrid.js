@@ -1,15 +1,15 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015, 2016 Markus Heinz
+ * (c) 2015, 2016, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
 
 Ext.define('Heinz.cdarchive.AlbumGrid', {
     extend: 'Ext.grid.Panel',
-    width: 750,
-    height: 560,
+    width: 800,
+    height: 540,
     sortableColumns: false,
     store: Ext.create('Heinz.cdarchive.AlbumStore'),
     id: 'AlbumGrid',

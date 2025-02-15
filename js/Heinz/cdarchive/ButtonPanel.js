@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2014 Markus Heinz
+ * (c) 2014, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -11,18 +11,18 @@ Ext.define('Heinz.cdarchive.ButtonPanel', {
     layout: {
         type: 'hbox',
         align: 'stretch',
-        padding: '10'
+        padding: 10
     },
     items: [
         {
             xtype: 'button',
             text: 'Reset',
-            margin: '0 455 10 0',
+            margin: '0 435 20 10',
         },
         {
             xtype: 'button',
             text: 'Submit',
-            margin: '0 10 10 0',
+            margin: '0 10 20 0',
         }
     ],
     getResetButton: function() {

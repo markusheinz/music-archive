@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -11,14 +11,15 @@ Ext.define('Heinz.cdarchive.LabelForm', {
     layout: {
         type: 'hbox',
         align: 'stretch',
-        padding: '10'
+        padding: 10
     },
     initComponent: function() {
         this.items = [
             {
                 xtype: 'label',
                 text: this.labelText,
-                margin: this.labelMargin
+                margin: '0 10 0 0',
+                width: 55
            }           
         ];
 

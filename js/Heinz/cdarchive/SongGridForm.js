@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2014 Markus Heinz
+ * (c) 2014, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -10,12 +10,13 @@ Ext.define('Heinz.cdarchive.SongGridForm', {
     extend: 'Ext.panel.Panel',
     title: 'Song Details',
     width: 600,
-    height: 400,
+    height: 380,
     layout: 'fit',
     items: {
         xtype: 'grid',
         border: false,
 	title: '',
+	sortableColumns: false,
  	columns: {
             items: [
                 { text: 'Track', dataIndex: 'index', width: 70 },

@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015, 2017 Markus Heinz
+ * (c) 2015, 2017, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -14,7 +14,7 @@ Ext.application({
         Ext.widget({
             xtype: 'tabpanel',
             renderTo: Ext.getBody(),
-            width: 728,
+            width: 800,
             height: 830,
             title: 'Music Archive',
             items: [
