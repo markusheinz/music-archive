@@ -9,7 +9,6 @@
 Ext.define('Heinz.cdarchive.SongFilter', {
     extend: 'Heinz.cdarchive.LabelForm',
     labelText: 'Song:',
-    labelMargin: '0 10 0 0',
     formItem: {
         xtype: 'textfield',
         margin: '0 5 0 0',

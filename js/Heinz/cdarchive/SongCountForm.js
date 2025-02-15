@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -9,7 +9,6 @@
 Ext.define('Heinz.cdarchive.SongCountForm', {
     extend: 'Heinz.cdarchive.LabelForm',
     labelText: 'Number of Songs:',
-    labelMargin: '0 13 0 0',
     initComponent: function() {
         this.config = this;
 

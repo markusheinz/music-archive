@@ -1,7 +1,7 @@
 /*
  * Open Source Music Collection Database (working title)
  *
- * (c) 2015 Markus Heinz
+ * (c) 2015, 2025 Markus Heinz
  * 
  * Licensed under the GPL v3.0
  */
@@ -9,7 +9,6 @@
 Ext.define('Heinz.cdarchive.LocationFilter', {
     extend: 'Heinz.cdarchive.ItemFilter',
     labelText: 'Location:',
-    labelMargin: '0 10 0 0',
     displayField: 'location_desc',
     valueField: 'location_id',
     store: Ext.create('Heinz.cdarchive.ItemStore', {
